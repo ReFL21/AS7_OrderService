@@ -40,7 +40,7 @@ jobs:
       run: ls
 
     - name: Build with Gradle 8.5
-      run: gradle -p E-Commerce_Application build
+      run: gradle -p Order_Service build
 
 #    - name: Grant execute permission
 #      run: chmod +x ./E-Commerce_Application/gradlew
