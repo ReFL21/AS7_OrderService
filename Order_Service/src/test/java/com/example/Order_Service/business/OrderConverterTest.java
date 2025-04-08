@@ -14,7 +14,7 @@ public class OrderConverterTest {
                 .price(100)
 //                .user(UserEntity.builder().id(1L).build())
 //                .tickets(TicketEntity.builder().id(1L).match(FootballMatchEntity.builder().id(1l).build()).build())
-                .quantity(2)
+                .userId(2L)
                 .date("28-12-2022")
                 .build();
 
@@ -25,7 +25,7 @@ public class OrderConverterTest {
                 .price(100)
 //                .user(User.builder().id(1L).build())
 //                .tickets(Tickets.builder().id(1L).match(FootballMatch.builder().id(1l).build()).build())
-                .quantity(2)
+                .user_id(2L)
                 .date("28-12-2022")
                 .build();
 

@@ -8,37 +8,35 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "orders")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "order_id")
     private Long id;
 
-//    @JoinColumn(name = "ticket_id")
-//    @ManyToOne
-//    private ProductEntity tickets;
-//
-//    @JoinColumn(name = "user_id")
-//    @ManyToOne
-//    private UserEntity user;
+    @Column(name = "user_id")
+    private Long userId;
 
     @NotBlank
     @Length(max = 45)
     @Column(name = "date")
     private String date;
 
-
-    @Column(name = "quantity")
-    @NotNull
-    private long quantity;
-
     @Column(name = "price")
     @NotNull
     private long price;
 
+    // One-to-many relationship to OrderProductEntity
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<OrderProductEntity> orderProducts = new ArrayList<>();
 }

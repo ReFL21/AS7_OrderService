@@ -8,19 +8,20 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class CreateOrderRequest {
     @NotNull
-//    private Product product;
-
+    private List<Long> productIds;
     @NotNull
-//    private User user;
+    private long price;
     @NotBlank
     private String date;
 
     @NotNull
-    private long quantity;
+    private Long user_id;
 }

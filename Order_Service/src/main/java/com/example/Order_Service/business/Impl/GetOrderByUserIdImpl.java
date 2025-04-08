@@ -18,16 +18,13 @@ public class GetOrderByUserIdImpl implements IGetOrdersByUserId {
 
     @Override
     public GetOrdersByUserIdResponse getOrdersByUserId(Long id) {
-        List<Order> order;
-        order = orderRepository.findOrderEntitiesByUserId(id)
+        List<Order> orders = orderRepository.findOrderEntitiesByUserId(id)
                 .stream()
                 .map(OrderConverter::convert)
                 .toList();
 
-
         return GetOrdersByUserIdResponse.builder()
-                .orders(order)
+                .orders(orders)
                 .build();
-
     }
 }

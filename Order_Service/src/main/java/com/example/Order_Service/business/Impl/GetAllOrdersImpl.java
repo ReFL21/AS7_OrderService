@@ -17,14 +17,13 @@ public class GetAllOrdersImpl implements IGetAllOrders {
 
     @Transactional
     public GetAllOrders getAllOrders(){
-        List<Order> orderEntities;
-        orderEntities = orderRepository.findAll()
+        List<Order> orderList = orderRepository.findAll()
                 .stream()
                 .map(OrderConverter::convert)
                 .toList();
 
         return GetAllOrders.builder()
-                .orderList(orderEntities)
+                .orderList(orderList)
                 .build();
     }
 }

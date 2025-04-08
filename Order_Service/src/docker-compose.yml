@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_orders
+    environment:
+      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_DATABASE: review-db
+    ports:
+      - "3307:3306"  # Exposes MySQL to the host on 3307, but inside the network, it listens on 3306.
+    volumes:
+      - mysql_orders_data:/var/lib/mysql
+      - ./mysql-init-orders:/docker-entrypoint-initdb.d
+
+  orderservice:
+    image: orders-service:0.0.2
+    container_name: orderservice_app
+    ports:
+      - "8082:8080"
+    environment:
+      # Use the MySQL container's service name and internal port.
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/orderdatabase
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: qwerty
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_orders_data:

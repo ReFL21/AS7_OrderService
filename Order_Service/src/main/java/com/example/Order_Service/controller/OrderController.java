@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @RequestMapping("/orders")
+@CrossOrigin(origins = {"http://localhost:8082"})
 public class OrderController {
     @Autowired
     private IGetOrdersByUserId getOrdersByUserId;
@@ -27,7 +28,7 @@ public class OrderController {
     @Autowired
     private ICreateOrder createOrder;
     @Autowired
-    private IDeleteOrder deleteTicket;
+    private IDeleteOrder deleteOrders;
 //
 //    @IsAuthenticated
 //    @RolesAllowed({"Admin"})
@@ -56,7 +57,7 @@ public class OrderController {
 //    @RolesAllowed({"Admin"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id){
-//        deleteTicketUseCase.deleteOrder(id);
+        deleteOrders.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
 

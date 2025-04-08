@@ -4,16 +4,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class OrderProducts {
     private Long id;
-    private String date;
-    private Long user_id;
-    private long price;
-    private List<OrderProducts> orderProductIds;
+    private Long productId;
 }
