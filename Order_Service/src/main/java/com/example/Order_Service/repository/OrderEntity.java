@@ -9,7 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -27,10 +29,9 @@ public class OrderEntity {
     @Column(name = "user_id")
     private Long userId;
 
-    @NotBlank
-    @Length(max = 45)
+    @NotNull
     @Column(name = "date")
-    private String date;
+    private LocalDateTime date;
 
     @Column(name = "price")
     @NotNull

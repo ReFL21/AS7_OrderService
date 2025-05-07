@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service-deployment
+  labels:
+    app: order-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: orders-service:0.0.2      # Replace with your actual image name (including tag if needed)
+          ports:
+            - containerPort: 8080          # Replace with your container’s port if different
+          # Optional: Add resource requests/limits if desired
+          # resources:
+          #   requests:
+          #     cpu: "100m"
+          #     memory: "128Mi"
+          #   limits:
+          #     cpu: "500m"
+          #     memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+spec:
+  selector:
+    app: order-service
+  ports:
+    - protocol: TCP
+      port: 80               # Exposed service port
+      targetPort: 8080       # Must match containerPort from the deployment
+  type: NodePort           # This exposes the service on each node’s IP at a dynamic port (you can also use ClusterIP or LoadBalancer)

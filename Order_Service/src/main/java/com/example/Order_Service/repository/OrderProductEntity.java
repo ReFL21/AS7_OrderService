@@ -21,7 +21,7 @@ public class OrderProductEntity {
 
     @Column(name = "product_id")
     @NotNull
-    private int productId;
+    private String productId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull

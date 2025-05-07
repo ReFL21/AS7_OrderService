@@ -31,7 +31,7 @@ public class OrderConverter {
     public static OrderProducts convertOrderProduct(OrderProductEntity orderProductEntity) {
         return OrderProducts.builder()
                 .id(orderProductEntity.getId())
-                .productId((long) orderProductEntity.getProductId()) // adjust type as needed
+                .productId(orderProductEntity.getProductId()) // adjust type as needed
                 .build();
     }
 }

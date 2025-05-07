@@ -4,6 +4,8 @@ import com.example.Order_Service.domain.Order;
 import com.example.Order_Service.repository.OrderEntity;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OrderConverterTest {
@@ -15,7 +17,7 @@ public class OrderConverterTest {
 //                .user(UserEntity.builder().id(1L).build())
 //                .tickets(TicketEntity.builder().id(1L).match(FootballMatchEntity.builder().id(1l).build()).build())
                 .userId(2L)
-                .date("28-12-2022")
+                .date(LocalDateTime.now())
                 .build();
 
         Order actualOrder = OrderConverter.convert(order);
@@ -26,7 +28,7 @@ public class OrderConverterTest {
 //                .user(User.builder().id(1L).build())
 //                .tickets(Tickets.builder().id(1L).match(FootballMatch.builder().id(1l).build()).build())
                 .user_id(2L)
-                .date("28-12-2022")
+                .date(LocalDateTime.now())
                 .build();
 
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -16,11 +17,11 @@ import java.util.List;
 @Builder
 public class CreateOrderRequest {
     @NotNull
-    private List<Long> productIds;
+    private List<String> productIds;
     @NotNull
     private long price;
-    @NotBlank
-    private String date;
+    @NotNull
+    private LocalDateTime date;
 
     @NotNull
     private Long user_id;

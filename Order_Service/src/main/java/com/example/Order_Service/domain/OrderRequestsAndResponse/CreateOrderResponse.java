@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -13,9 +14,8 @@ import java.util.List;
 @Builder
 public class CreateOrderResponse {
     private Long id;
-    private String date;
+    private LocalDateTime date;
     private Long user_id;
     private long price;
-    // New field for returning the associated product IDs (or details)
-    private List<Long> productIds;
+    private List<String> productIds;
 }
