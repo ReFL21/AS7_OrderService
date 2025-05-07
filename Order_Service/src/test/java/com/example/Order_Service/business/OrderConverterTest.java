@@ -11,13 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class OrderConverterTest {
     @Test
     void shouldConvertOrderEntityToOrder(){
+        LocalDateTime date = LocalDateTime.now();
         OrderEntity order = OrderEntity.builder()
                 .id(21L)
                 .price(100)
-//                .user(UserEntity.builder().id(1L).build())
-//                .tickets(TicketEntity.builder().id(1L).match(FootballMatchEntity.builder().id(1l).build()).build())
                 .userId(2L)
-                .date(LocalDateTime.now())
+                .date(date)
                 .build();
 
         Order actualOrder = OrderConverter.convert(order);
@@ -25,10 +24,8 @@ public class OrderConverterTest {
         Order expectedOrder = Order.builder()
                 .id(21L)
                 .price(100)
-//                .user(User.builder().id(1L).build())
-//                .tickets(Tickets.builder().id(1L).match(FootballMatch.builder().id(1l).build()).build())
                 .user_id(2L)
-                .date(LocalDateTime.now())
+                .date(date)
                 .build();
 
 
