@@ -8,6 +8,7 @@ import com.example.Order_Service.domain.OrderRequestsAndResponse.CreateOrderRequ
 import com.example.Order_Service.domain.OrderRequestsAndResponse.CreateOrderResponse;
 import com.example.Order_Service.domain.OrderRequestsAndResponse.GetAllOrders;
 import com.example.Order_Service.domain.OrderRequestsAndResponse.GetOrdersByUserIdResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @RequestMapping("/orders")
-@CrossOrigin(origins = {"http://localhost:8082"})
+@CrossOrigin(origins = {"http://localhost:5173"})
 public class OrderController {
     @Autowired
     private IGetOrdersByUserId getOrdersByUserId;
@@ -29,31 +30,33 @@ public class OrderController {
     private ICreateOrder createOrder;
     @Autowired
     private IDeleteOrder deleteOrders;
-//
-//    @IsAuthenticated
-//    @RolesAllowed({"Admin"})
+
+
+    @RolesAllowed({"Admin"})
     @GetMapping
     public ResponseEntity<GetAllOrders> getAllOrders(){
         GetAllOrders response = getAllOrders.getAllOrders();
         return ResponseEntity.ok(response);
     }
-//
-//    @IsAuthenticated
-//    @RolesAllowed({"Customer"})
+
+
+
+    @RolesAllowed({"Customer"})
     @PostMapping("/registerOrder")
     public ResponseEntity<CreateOrderResponse> createOrder(@RequestBody @Valid CreateOrderRequest request){
         CreateOrderResponse response = createOrder.createOrder(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-//    @RolesAllowed({"Customer"})
+
+
+    @RolesAllowed({"Customer"})
     @GetMapping("/{id}")
     public ResponseEntity<GetOrdersByUserIdResponse> getOrdersByUserId(@PathVariable(value = "id") final Long id){
         GetOrdersByUserIdResponse response = getOrdersByUserId.getOrdersByUserId(id);
         return ResponseEntity.ok(response);
 
     }
-//
-//    @IsAuthenticated
+
 //    @RolesAllowed({"Admin"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id){

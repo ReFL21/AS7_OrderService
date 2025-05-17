@@ -6,6 +6,7 @@ import com.example.Order_Service.business.OrderConverter;
 import com.example.Order_Service.domain.Order;
 import com.example.Order_Service.domain.OrderRequestsAndResponse.GetOrdersByUserIdResponse;
 import com.example.Order_Service.repository.OrderRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class GetOrderByUserIdImpl implements IGetOrdersByUserId {
     private OrderRepository orderRepository;
 
     @Override
+    @Transactional
     public GetOrdersByUserIdResponse getOrdersByUserId(Long id) {
         List<Order> orders = orderRepository.findOrderEntitiesByUserId(id)
                 .stream()
