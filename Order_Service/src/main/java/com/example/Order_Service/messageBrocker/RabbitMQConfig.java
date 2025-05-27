@@ -5,13 +5,11 @@ import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.DefaultJackson2JavaTypeMapper;
-import org.springframework.amqp.support.converter.Jackson2JavaTypeMapper;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
@@ -86,21 +84,21 @@ public class RabbitMQConfig {
         Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter();
         DefaultJackson2JavaTypeMapper mapper = new DefaultJackson2JavaTypeMapper();
 
-        // 1) Trust the package where the published event lives
+
         mapper.setTrustedPackages(
                 "com.example.Payment.Service.Events",
                 "com.example.Order_Service.events",
                 "com.example.Product_Service.events",
-                "com.example.User_Service.rabbitMQ"    // <-- include this!
+                "com.example.User_Service.rabbitMQ"
         );
 
-        // 2) Map the producer’s FQCN → your local class
+
         mapper.setIdClassMapping(Map.of(
                 "com.example.Payment.Service.Events.OrderCreateEvent",
                 OrderCreateEvent.class,
                 "com.example.Order_Service.events.ProductUpdateEvent",
                 ProductUpdateEvent.class,
-                "com.example.User_Service.rabbitMQ.UserDeleteEvent",  // <-- exact header value
+                "com.example.User_Service.rabbitMQ.UserDeleteEvent",
                 UserDeleteEvent.class
         ));
 

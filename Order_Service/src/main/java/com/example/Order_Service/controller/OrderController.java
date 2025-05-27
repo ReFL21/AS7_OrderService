@@ -1,5 +1,4 @@
 package com.example.Order_Service.controller;
-
 import com.example.Order_Service.business.ICreateOrder;
 import com.example.Order_Service.business.IDeleteOrder;
 import com.example.Order_Service.business.IGetAllOrders;
@@ -57,7 +56,8 @@ public class OrderController {
 
     }
 
-//    @RolesAllowed({"Admin"})
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id){
         deleteOrders.deleteOrder(id);

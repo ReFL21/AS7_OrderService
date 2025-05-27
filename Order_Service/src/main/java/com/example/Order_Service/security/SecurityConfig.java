@@ -30,7 +30,7 @@ public class SecurityConfig {
     @Value("${jwt.secret}")
     private String base64Secret;
 
-    // 1) Decode & expose the same signing key you used in User Service
+
     @Bean
     public JwtDecoder jwtDecoder() {
         byte[] keyBytes = Decoders.BASE64.decode(base64Secret);
@@ -51,7 +51,6 @@ public class SecurityConfig {
     }
 
 
-    // 2) Secure all endpoints, but let OPTIONS/Login/Register through
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -67,7 +66,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // 3) Map your “role” claim → Spring authorities (ROLE_Admin, ROLE_Customer)
     private JwtAuthenticationConverter jwtAuthConverter() {
         JwtAuthenticationConverter conv = new JwtAuthenticationConverter();
         conv.setJwtGrantedAuthoritiesConverter(jwt -> {

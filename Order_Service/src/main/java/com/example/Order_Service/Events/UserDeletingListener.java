@@ -28,10 +28,8 @@ public class UserDeletingListener {
             return;
         }
 
-        // 2) delete them via JPA – this will cascade to orderProducts
         orderRepository.deleteAll(orders);
     }
-
 
 
 }
