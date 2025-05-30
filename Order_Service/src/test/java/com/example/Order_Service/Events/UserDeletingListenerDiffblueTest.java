@@ -1,11 +1,15 @@
 package com.example.Order_Service.Events;
 
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.example.Order_Service.repository.OrderEntity;
 import com.example.Order_Service.repository.OrderRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.DisplayName;
@@ -29,15 +33,33 @@ class UserDeletingListenerDiffblueTest {
     @Autowired
     private UserDeletingListener userDeletingListener;
 
-    /**
-     * Test {@link UserDeletingListener#handleUserDeletion(UserDeleteEvent)}.
-     * <ul>
-     *   <li>When {@link UserDeleteEvent#UserDeleteEvent()}.</li>
-     *   <li>Then calls {@link OrderRepository#findOrderEntitiesByUserId(Long)}.</li>
-     * </ul>
-     * <p>
-     * Method under test: {@link UserDeletingListener#handleUserDeletion(UserDeleteEvent)}
-     */
+
+    @Test
+    @DisplayName("Test handleUserDeletion(UserDeleteEvent); then calls deleteAll(Iterable)")
+    @Tag("MaintainedByDiffblue")
+    void testHandleUserDeletion_thenCallsDeleteAll() {
+        // Arrange
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setDate(LocalDate.of(1970, 1, 1).atStartOfDay());
+        orderEntity.setId(1L);
+        orderEntity.setOrderProducts(new ArrayList<>());
+        orderEntity.setPrice(1L);
+        orderEntity.setUserId(1L);
+
+        ArrayList<OrderEntity> orderEntityList = new ArrayList<>();
+        orderEntityList.add(orderEntity);
+        doNothing().when(orderRepository).deleteAll(Mockito.<Iterable<OrderEntity>>any());
+        when(orderRepository.findOrderEntitiesByUserId(Mockito.<Long>any())).thenReturn(orderEntityList);
+
+        // Act
+        userDeletingListener.handleUserDeletion(new UserDeleteEvent());
+
+        // Assert
+        verify(orderRepository).findOrderEntitiesByUserId(isNull());
+        verify(orderRepository).deleteAll(isA(Iterable.class));
+    }
+
+
     @Test
     @DisplayName("Test handleUserDeletion(UserDeleteEvent); when UserDeleteEvent(); then calls findOrderEntitiesByUserId(Long)")
     @Tag("MaintainedByDiffblue")
