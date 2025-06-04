@@ -46,7 +46,7 @@ class SecurityConfigDiffblueTest {
 
     @MockitoBean
     private SecurityFilterChain securityFilterChain;
-    
+
     @Test
     @DisplayName("Test corsConfigurationSource(); given SecurityConfig (default constructor)")
     @Tag("MaintainedByDiffblue")
